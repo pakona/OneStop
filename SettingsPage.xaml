@@ -1,0 +1,65 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="OneStop.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:OneStop"
+    xmlns:vms="clr-namespace:OneStop.ViewModels"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="#1C2043"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True"
+    shell:SystemTray.ForegroundColor="#FEFFFFFF"
+    shell:SystemTray.BackgroundColor="#1C2043">
+
+    <phone:PhoneApplicationPage.Resources>
+        <local:DatabindingDebugConverter x:Key="DatabindingDebugConverter"/>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <local:BooleanToInvertConverter x:Key="BooleanToInvertConverter" />
+        <local:StringToUpperConverter x:Key="StringToUpperConverter" />
+    </phone:PhoneApplicationPage.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="White">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" VerticalAlignment="Top" Orientation="Vertical" Background="#1C2043" Height="70">
+            <TextBlock Text="SETTINGS" TextWrapping="Wrap" FontSize="24" Foreground="#FDC226" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="ExtraBold" Margin="0,30,10,0"/>
+            <Rectangle Fill="#FDC226" Height="4" VerticalAlignment="Bottom" Margin="10,0,10,0" />
+        </StackPanel>
+
+        <toolkit:ToggleSwitch Grid.Row="1" IsChecked="{Binding IsLocationAccessEnabled, Mode=TwoWay}" Foreground="#1C2043" Background="White" SwitchForeground="#1C2043" FontWeight="SemiBold" Style="{StaticResource MyToggleSwitchStyle}">
+            <toolkit:ToggleSwitch.Header>
+                <TextBlock Text="LOCATION" FontSize="24" Foreground="#1C2043" FontWeight="SemiBold" />
+            </toolkit:ToggleSwitch.Header>
+        </toolkit:ToggleSwitch>
+
+        <Button Grid.Row="2" HorizontalAlignment="Left" Margin="-10,-10,0,0" Name="mBtnRateAndReview" Click="mBtnRateAndReview_Click" Style="{StaticResource MyTextButtonStyle}">
+            <Button.Content>
+                <TextBlock Text="Rate And Review" TextDecorations="Underline" Foreground="#1C2043"></TextBlock>
+            </Button.Content>
+        </Button>
+
+        <Button Grid.Row="3" Background="Transparent" Foreground="BlueViolet" HorizontalAlignment="Left" Margin="-10,-10,0,0" Name="mBtnShowPrivacyPolicy" Click="mBtnShowPrivacyPolicy_Click" Style="{StaticResource MyTextButtonStyle}">
+            <Button.Content>
+                <TextBlock Text="Privacy Policy" TextDecorations="Underline" Foreground="#1C2043"></TextBlock>
+            </Button.Content>
+        </Button>
+
+        <TextBlock Grid.Row="4" Margin="15,-10,15,0" Text="{Binding PrivacyPolicy}" TextWrapping="Wrap" Foreground="#1C2043" Visibility="{Binding ShowPrivacyPolicy, Converter={StaticResource BooleanToVisibilityConverter}}"></TextBlock>
+        
+    </Grid>
+
+</phone:PhoneApplicationPage>

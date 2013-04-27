@@ -1,0 +1,17 @@
+<vm:MainViewModel
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:OneStop.ViewModels"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    IsDataLoaded="True">
+
+    <vm:MainViewModel.Items>
+        <vm:StopInfoViewModel StopNo="51549" WheelchairAccess="True">
+            <vm:StopInfoViewModel.Items>
+                <vm:BusInfoViewModel StopNo="51549" Direction="West" Destination="TO METROTOWN STN"  Location="Kincaid St at Gilmore Way" RouteNo="129" NextLeaveTime="10:30 AM" LeaveTimeAfterNext="10:45 AM" />
+                <vm:BusInfoViewModel StopNo="51549" Direction="WEST" Location="Kincaid St at Gilmore Way" Destination="TO GRANVILLE" RouteNo="025" NextLeaveTime="11:22 PM" LeaveTimeAfterNext="11:48 PM" />
+            </vm:StopInfoViewModel.Items>
+        </vm:StopInfoViewModel>
+    </vm:MainViewModel.Items>
+
+</vm:MainViewModel>

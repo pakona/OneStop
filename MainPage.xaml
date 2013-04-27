@@ -1,0 +1,84 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="OneStop.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:OneStop"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True"
+    shell:SystemTray.ForegroundColor="#FEFFFFFF"
+    shell:SystemTray.BackgroundColor="#1C2043">
+
+    <phone:PhoneApplicationPage.Resources>
+        <local:DatabindingDebugConverter x:Key="DatabindingDebugConverter"/>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <local:BooleanToInvertConverter x:Key="BooleanToInvertConverter" />
+        <local:StringToUpperConverter x:Key="StringToUpperConverter" />
+    </phone:PhoneApplicationPage.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="White">
+        <ProgressBar Background="LightGray" Foreground="#1C2043" Value="{Binding LoadingDataProgressValue}" IsIndeterminate="True" VerticalAlignment="Center" Visibility="{Binding IsLoadingData, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Foreground="#1C2043" FontSize="30" FontWeight="ExtraBold" Margin="30,0,30,0" Text="{Binding ErrorMessage}" TextWrapping="Wrap" Visibility="{Binding EncounteredError, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <phone:LongListSelector ItemsSource="{Binding Items}" Visibility="{Binding IsDataLoaded, Converter={StaticResource BooleanToVisibilityConverter}}" >
+            <phone:LongListSelector.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,0,0,10" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid x:Name="LayoutRoot" Grid.Row="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Rectangle Fill="#1C2043" Height="70" />
+                            <Rectangle Fill="#FDC226" Height="4" VerticalAlignment="Bottom" Margin="10,0,10,5" />
+                            <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
+                                <Path HorizontalAlignment="Left" Height="35" Stretch="Uniform" Fill="White" Data="F1 M 103.492,19.709L 108.786,60.388L 108.786,116.509L 99.6667,116.509L 99.6667,125.262C 99.6784,136.022 83.9818,136.022 84,125.262L 84,116.509L 53.8411,116.509L 53.7695,116.509L 24.7864,116.509L 24.7864,125.262C 24.7799,136.022 9.08398,136.022 9.11972,125.262L 9.11972,116.509L 0,116.509L 0,60.388L 5.29492,19.7103C 6.73438,12.3399 11.4336,9.4023 18.4616,6.47069C 25.429,3.56642 42.0677,0.114578 54.3918,0.0091095L 53.8411,1.52588e-005L 54.9453,1.52588e-005L 54.3932,0.0091095C 66.6939,0.114822 83.3322,3.56654 90.25,6.4687C 97.3293,9.40111 102.029,12.3386 103.492,19.709 Z M 31.9948,10.2955C 27.5917,10.2839 27.5917,16.8946 31.9948,16.9161L 53.7694,16.9161L 76.7904,16.9161C 81.1718,16.8946 81.1718,10.2839 76.7904,10.2955L 53.841,10.2955L 31.9948,10.2955 Z M 16.916,98.931C 21.0975,98.9115 24.4693,95.5403 24.4934,91.3542C 24.4693,87.2227 21.0975,83.8515 16.916,83.8515C 12.7811,83.8515 9.40808,87.2227 9.4133,91.3542C 9.40808,95.5403 12.7811,98.9102 16.916,98.931 Z M 53.841,64.6517L 94.8866,64.6517C 98.7629,64.6889 99.5833,61.8783 99.2278,59.0625L 95.108,29.4929C 94.5182,25.9317 93.2994,23.569 88.6353,23.5358L 53.7708,23.5358L 20.1536,23.5358C 15.4627,23.569 14.248,25.933 13.6816,29.4929L 9.56369,59.0625C 9.18158,61.877 10.0013,64.6889 13.901,64.6517L 53.841,64.6517 Z M 91.7968,98.931C 95.9792,98.9115 99.3541,95.5403 99.3724,91.3542C 99.3541,87.2227 95.9792,83.8515 91.7968,83.8515C 87.6639,83.8515 84.2943,87.2227 84.2943,91.3542C 84.2943,95.5403 87.6639,98.9102 91.7968,98.931 Z "/>
+                                <Path HorizontalAlignment="Left" Height="35" Stretch="Uniform" Fill="White" Margin="10,0,0,0" Visibility="{Binding WheelchairAccess, Converter={StaticResource BooleanToVisibilityConverter}}" Data="F1 M 111.499,101.281L 116.293,111.952L 99.3152,119.575L 93.9975,121.96L 91.5939,116.628L 74.4441,78.5938L 37.3217,79.1198L 31.6277,79.1979L 31.3986,73.5131L 29.2605,22.7631C 25.892,20.5574 23.6589,16.7403 23.6589,12.407C 23.6589,5.54692 29.2111,1.52588e-005 36.0756,1.52588e-005C 42.9259,1.52588e-005 48.4857,5.54692 48.4844,12.407C 48.4844,17.4973 45.4089,21.8704 41.0157,23.7852L 42.0417,48.0976L 71.7592,48.0976L 71.7592,59.8053L 42.5248,59.8053L 42.8491,67.3334L 78.1212,66.832L 81.9532,66.78L 83.5379,70.28L 99.8608,106.512L 111.499,101.281 Z M 75.1485,98.1186L 81.2682,110.24C 73.9701,124.223 59.4518,133.333 43.095,133.333C 19.3333,133.333 0,113.999 0,90.2474C 0,74.0678 8.92065,59.3998 23.2865,51.9616L 24.3138,53.931L 25.7969,64.0944C 17.0482,69.8803 11.7057,79.5912 11.7057,90.2474C 11.7057,107.553 25.7826,121.626 43.095,121.626C 57.5912,121.626 70.1367,111.807 73.5756,97.7474L 75.1485,98.1186 Z "/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding StopNo}" TextWrapping="Wrap" FontSize="24" Foreground="#FDC226" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="ExtraBold" Margin="0,0,10,10"/>
+                        </Grid>
+
+                        <phone:LongListSelector x:Name="StopLongListSelector" Grid.Row="1" ItemsSource="{Binding Items}" >
+                            <phone:LongListSelector.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical" Margin="10,0,10,4">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding RouteNo, Converter={StaticResource StringToUpperConverter}}"  TextWrapping="Wrap" FontSize="24" Foreground="#1C2043" FontWeight="ExtraBold"/>
+                                            <TextBlock Text="{Binding Direction, Converter={StaticResource StringToUpperConverter}}" TextWrapping="Wrap" FontSize="24" Foreground="#1C2043"  Margin="4,0,0,0" FontWeight="ExtraBold"/>
+                                            <TextBlock Text="{Binding Destination, Converter={StaticResource StringToUpperConverter}}" TextWrapping="Wrap" FontSize="24" Foreground="#1C2043"  Margin="4,0,0,0" FontWeight="ExtraBold"/>
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding Location, Converter={StaticResource StringToUpperConverter}}" TextWrapping="Wrap" FontSize="24" Foreground="#1C2043" FontWeight="ExtraBold"/>
+                                        <Rectangle Fill="#1C2043" Height="4" />
+                                        <TextBlock Text="{Binding NextLeaveTime}" Foreground="#1C2043" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding LeaveTimeAfterNext}" Foreground="#1C2043" FontWeight="SemiBold"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </phone:LongListSelector.ItemTemplate>
+                        </phone:LongListSelector>
+                    </Grid>
+                </DataTemplate>
+            </phone:LongListSelector.ItemTemplate>
+        </phone:LongListSelector>
+    </Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#1C2043" ForegroundColor="#FEFFFFFF">
+            <shell:ApplicationBarIconButton IconUri="/Assets/RefreshBarIcon.png" Text="Refresh" Click="RefreshBarIconButton_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/Assets/SettingsBarIcon.png" Text="Settings" Click="SettingsBarIconButton_Click"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>
