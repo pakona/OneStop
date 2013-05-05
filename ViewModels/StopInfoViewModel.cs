@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TranslinkAPI.CSharp;
 
 namespace OneStop.ViewModels
 {
@@ -21,7 +22,7 @@ namespace OneStop.ViewModels
         {
         }
 
-        public StopInfoViewModel(BusStop stop)
+        public StopInfoViewModel(Stop stop)
         {
             StopNo = stop.StopNo;
             Routes = stop.Routes;

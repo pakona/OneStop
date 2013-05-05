@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TranslinkAPI.CSharp;
 
 namespace OneStop.ViewModels
 {
@@ -34,11 +35,11 @@ namespace OneStop.ViewModels
 
         public async void LoadData()
         {
-            List<NextBus> busses = await TranslinkAPI.GetNextBusSchedulesAsync<List<NextBus>>(StopNo, RouteNo);
+            GetStopEstimatesResponse rsp = await Translink.GetStopEstimates(App.API_KEY, StopNo, RouteNo);
 
-            if (busses.Count > 0)
+            if (rsp.NextBuses.Count > 0)
             {
-                NextBus nextBus = busses[0];
+                NextBus nextBus = rsp.NextBuses[0];
                 Direction = nextBus.Direction;
 
                 ExpectedLeaveTimes.Clear();

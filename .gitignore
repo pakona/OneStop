@@ -1,3 +1,9 @@
+# Binaries/Obj files #
+######################
 bin/
 obj/
+
+# Visual User Options#
+######################
 OneStop.csproj.user
+OneStop.v11.suo

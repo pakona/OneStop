@@ -127,10 +127,15 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OneStop\OneStop.csproj">
+    <ProjectReference Include="..\OneStop.csproj">
       <Project>{08D43B82-8731-4819-94EA-9F18C9A83B12}</Project>
       <Name>OneStop</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="TranslinkAPI.CSharp">
+      <HintPath>..\..\..\TranslinkAPI.CSharp\bin\Release\TranslinkAPI.CSharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

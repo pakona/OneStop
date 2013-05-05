@@ -8,11 +8,13 @@ using Windows.Devices.Geolocation;
 using System.Windows;
 using System.IO.IsolatedStorage;
 using Microsoft.Phone.Net.NetworkInformation;
+using TranslinkAPI.CSharp;
 
 namespace OneStop.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+
         public MainViewModel()
         {
             Items = new ObservableCollection<StopInfoViewModel>();
@@ -107,19 +109,18 @@ namespace OneStop.ViewModels
                 {
                     ++numTentatives;
 
-                    //UnitTest values lat=49.249312, long=-123.010354
                     NotifyLoadingDataProgress(25.0f, "Getting closest stops");
-                    List<BusStop> stops = await TranslinkAPI.GetClosestStopsAsync<List<BusStop>>(geoposition.Coordinate.Latitude, geoposition.Coordinate.Longitude, Settings.DefaultSearchRadius * numTentatives);
+                    GetStopsResponse rsp = await Translink.GetStops(App.API_KEY, geoposition.Coordinate.Latitude, geoposition.Coordinate.Longitude, Settings.DefaultSearchRadius * numTentatives);
 
-                    foreach (BusStop stop in stops)
+                    foreach (Stop stop in rsp.Stops)
                     {
-                        NotifyLoadingDataProgress(75.0f / stops.Count, String.Format("Getting info for stop #{0}", stop.StopNo));
+                        NotifyLoadingDataProgress(75.0f / rsp.Stops.Count, String.Format("Getting info for stop #{0}", stop.StopNo));
                         StopInfoViewModel stopInfoViewModel = new StopInfoViewModel(stop);
                         Items.Add(stopInfoViewModel);
                         stopInfoViewModel.LoadData();
                     }
 
-                    noStopAround = stops.Count == 0;
+                    noStopAround = rsp.Stops.Count == 0;
                 }
 
                 if (noStopAround)

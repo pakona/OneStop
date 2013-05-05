@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OneStop;
 using System.Collections.Generic;
+using TranslinkAPI.CSharp;
 
 namespace OneStopUnitTest
 {
@@ -15,7 +16,7 @@ namespace OneStopUnitTest
             const double lng = -123.010354;
             const int radius = 100;
 
-            List<BusStop> stops = await TranslinkAPI.GetClosestStopsAsync<List<BusStop>>(lat, lng, radius);
+            List<BusStop> stops = await Translink.GetClosestStopsAsync<List<BusStop>>("On7sr8TSCW6a6g7qub2d", lat, lng, radius);
 
             CollectionAssert.AllItemsAreUnique(stops);
             Assert.AreEqual(2, stops.Count);
@@ -29,7 +30,7 @@ namespace OneStopUnitTest
             const string routeNo = "129";
             const int count = 2;
 
-            List<NextBus> nextBus = await TranslinkAPI.GetNextBusSchedulesAsync<List<NextBus>>(stopNo, routeNo, count);
+            List<NextBus> nextBus = await Translink.GetNextBusSchedulesAsync<List<NextBus>>("On7sr8TSCW6a6g7qub2d", stopNo, routeNo, count);
 
             Assert.AreEqual("WEST", nextBus[0].Direction);
             Assert.IsNotNull(nextBus[0].Schedules);

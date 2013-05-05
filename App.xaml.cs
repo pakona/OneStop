@@ -13,6 +13,8 @@ namespace OneStop
 {
     public partial class App : Application
     {
+        public const string API_KEY = "On7sr8TSCW6a6g7qub2d";
+
         private static MainViewModel viewModel = null;
 
         /// <summary>
